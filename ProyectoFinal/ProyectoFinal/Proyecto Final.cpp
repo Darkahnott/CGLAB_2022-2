@@ -1,8 +1,8 @@
 /*--------------------------------------------------------*/
 /* ----------------  Proyecto Final (WP) --------------------------*/
 /*-----------------    2022-2  ---------------------------*/
-/*-------- Alumno: Saúl Abraham Esparza Rivera -----------*/
-/*-------- Cuenta: 314041502 -----------------------------*/
+/*-------- Alumnos: Saúl Abraham Esparza Rivera || Andrew Sánchez Manjarrez -----------*/
+/*-------- Cuenta: 314041502 || 416041343 -----------------------------*/
 
 // Std. Includes
 #include <string>
@@ -29,7 +29,7 @@
 
 
 // Properties
-const GLuint WIDTH = 800, HEIGHT = 600;
+const GLuint WIDTH = 1080, HEIGHT = 720;
 int SCREEN_WIDTH, SCREEN_HEIGHT;
 
 // Function prototypes
@@ -39,9 +39,9 @@ void DoMovement( );
 
 
 // Camera
-Camera camera( glm::vec3( 0.0f, 0.5f, 1.0f ) );
+Camera camera( glm::vec3( 0.5f, 1.5f, 29.0f ) );
 bool keys[1024];
-GLfloat lastX = 400, lastY = 300;
+GLfloat lastX = 540, lastY = 360;
 bool firstMouse = true;
 
 GLfloat deltaTime = 0.0f;
@@ -152,12 +152,15 @@ int main( )
     // Load textures
     //Model Poke1((char*)"Model/Pokeball/Parte_de_arriba.obj");
     //Model Poke2((char*)"Model/Pokeball/Parte_de_abajo.obj");
-    Model Mesita((char*)"Models/Mesita/Mesa peque.obj");
-    Model Silla((char*)"Models/Silla/Silla.obj");
-    Model Cafe((char*)"Models/Cafe/Tacita.obj");
-    Model PisoCafe((char*)"Models/PisoCafe/PisoCafe.obj");
-    Model Galletas((char*)"Models/Galletas/Plato.obj");
+    // 
+    // Descomentar cuando estemos seguros de donde va cada cosa
+    //Model Mesita((char*)"Models/Mesita/Mesa peque.obj");
+    //Model Silla((char*)"Models/Silla/Silla.obj");
+    //Model Cafe((char*)"Models/Cafe/Tacita.obj");
+    //Model PisoCafe((char*)"Models/PisoCafe/PisoCafe.obj");
+    //Model Galletas((char*)"Models/Galletas/Plato.obj");
 
+    Model Base((char*)"Models/Base/Base.obj");
 
     GLuint texture;
     glGenTextures(1, &texture);
@@ -209,52 +212,64 @@ int main( )
 
         // Draw the loaded model
 
-        //Mesita
+        ////Mesita
+        //glm::mat4 model(1);
+        //model = glm::mat4(1);
+        //model = glm::scale(model, glm::vec3(0.1f, 0.1f, 0.1f));
+        ////model = glm::rotate(model, glm::radians(-rot), glm::vec3(1.0f, 0.0f, 0.0f));
+        //glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
+        //Mesita.Draw(shader);
+        //glBindVertexArray(0);
+
+        ////Silla
+        //model = glm::mat4(1);
+        //model = glm::translate(model, glm::vec3(-0.3f, 0.02f, 0.0f));
+        //model = glm::scale(model, glm::vec3(0.03f, 0.03f, 0.03f));
+        //model = glm::rotate(model, glm::radians(50.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+        //glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
+        //Silla.Draw(shader);
+        //glBindVertexArray(0);
+
+        ////Taza de café
+        //model = glm::mat4(1);
+        //model = glm::translate(model, glm::vec3(0.0f, 0.42f, -0.1f));
+        //model = glm::scale(model, glm::vec3(0.02f, 0.02f, 0.02f));
+        //model = glm::rotate(model, glm::radians(50.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+        //glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
+        //Cafe.Draw(shader);
+        //glBindVertexArray(0);
+
+        ////Piso del café
+        //model = glm::mat4(1);
+        //model = glm::translate(model, glm::vec3(0.0f, 0.0f, -0.2f));
+        //model = glm::scale(model, glm::vec3(0.04f, 0.04f, 0.04f));
+        ////model = glm::rotate(model, glm::radians(50.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+        //glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
+        //PisoCafe.Draw(shader);
+        //glBindVertexArray(0);
+
+
+
+        ////Plato con galletas
+        //model = glm::mat4(1);
+        //model = glm::translate(model, glm::vec3(0.0f, 0.40f, 0.05f));
+        //model = glm::scale(model, glm::vec3(0.03f, 0.03f, 0.03f));
+        ////model = glm::rotate(model, glm::radians(50.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+        //glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
+        //Galletas.Draw(shader);
+        //glBindVertexArray(0);
+
+
+        //Base del escenario
         glm::mat4 model(1);
         model = glm::mat4(1);
-        model = glm::scale(model, glm::vec3(0.1f, 0.1f, 0.1f));
-        //model = glm::rotate(model, glm::radians(-rot), glm::vec3(1.0f, 0.0f, 0.0f));
-        glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
-        Mesita.Draw(shader);
-        glBindVertexArray(0);
-
-        //Silla
-        model = glm::mat4(1);
-        model = glm::translate(model, glm::vec3(-0.3f, 0.02f, 0.0f));
-        model = glm::scale(model, glm::vec3(0.03f, 0.03f, 0.03f));
-        model = glm::rotate(model, glm::radians(50.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-        glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
-        Silla.Draw(shader);
-        glBindVertexArray(0);
-
-        //Taza de café
-        model = glm::mat4(1);
-        model = glm::translate(model, glm::vec3(0.0f, 0.42f, -0.1f));
-        model = glm::scale(model, glm::vec3(0.02f, 0.02f, 0.02f));
-        model = glm::rotate(model, glm::radians(50.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-        glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
-        Cafe.Draw(shader);
-        glBindVertexArray(0);
-
-        //Piso del café
-        model = glm::mat4(1);
-        model = glm::translate(model, glm::vec3(0.0f, 0.0f, -0.2f));
-        model = glm::scale(model, glm::vec3(0.04f, 0.04f, 0.04f));
+        /*model = glm::translate(model, glm::vec3(0.0f, 0.40f, 0.05f));
+        model = glm::scale(model, glm::vec3(0.03f, 0.03f, 0.03f));*/
         //model = glm::rotate(model, glm::radians(50.0f), glm::vec3(0.0f, 1.0f, 0.0f));
         glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
-        PisoCafe.Draw(shader);
+        Base.Draw(shader);
         glBindVertexArray(0);
 
-
-
-        //Plato con galletas
-        model = glm::mat4(1);
-        model = glm::translate(model, glm::vec3(0.0f, 0.40f, 0.05f));
-        model = glm::scale(model, glm::vec3(0.03f, 0.03f, 0.03f));
-        //model = glm::rotate(model, glm::radians(50.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-        glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
-        Galletas.Draw(shader);
-        glBindVertexArray(0);
 
 
         glActiveTexture(GL_TEXTURE0);
