@@ -161,6 +161,7 @@ int main( )
     //Model Galletas((char*)"Models/Galletas/Plato.obj");
 
     Model Base((char*)"Models/Base/Base.obj");
+    Model Jeep((char*)"Models/Jeep/Jeep.obj");
 
     GLuint texture;
     glGenTextures(1, &texture);
@@ -270,6 +271,15 @@ int main( )
         Base.Draw(shader);
         glBindVertexArray(0);
 
+
+        //Jeep
+        model = glm::mat4(1);
+        //model = glm::translate(model, glm::vec3(0.0f, 0.40f, 0.05f));
+        //model = glm::scale(model, glm::vec3(0.03f, 0.03f, 0.03f));
+        //model = glm::rotate(model, glm::radians(50.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+        glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
+        Jeep.Draw(shader);
+        glBindVertexArray(0);
 
 
         glActiveTexture(GL_TEXTURE0);
