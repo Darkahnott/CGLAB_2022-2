@@ -37,3 +37,5 @@ ProyectoFinal/ProyectoFinal/Models/Cafe New/Cafe.obj
 ProyectoFinal/.vs/ProyectoFinal/v17/Browse.VC.db
 ProyectoFinal/.vs/ProyectoFinal/v17/Browse.VC.db
 ProyectoFinal/.vs/ProyectoFinal/v17/Browse.VC.db
+*.db-shm
+*.db-wal

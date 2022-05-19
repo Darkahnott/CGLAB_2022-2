@@ -408,7 +408,7 @@ int main( )
 
 
         // Set material properties
-        glUniform1f(glGetUniformLocation(lightingShader.Program, "material.shininess"), 30.0f);
+        glUniform1f(glGetUniformLocation(lightingShader.Program, "material.shininess"), 64.0f);
         //Base del escenario
         glm::mat4 model(1);
         view = camera.GetViewMatrix();
