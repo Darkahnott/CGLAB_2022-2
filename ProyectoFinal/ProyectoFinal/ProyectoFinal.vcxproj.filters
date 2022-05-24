@@ -67,5 +67,11 @@
     <None Include="Shaders\SkyBox.vs">
       <Filter>Archivos de origen\Shaders</Filter>
     </None>
+    <None Include="Shaders\anim2.frag">
+      <Filter>Archivos de origen\Shaders</Filter>
+    </None>
+    <None Include="Shaders\anim2.vs">
+      <Filter>Archivos de origen\Shaders</Filter>
+    </None>
   </ItemGroup>
 </Project>

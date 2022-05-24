@@ -1,0 +1,820 @@
+# 3ds Max Wavefront OBJ Exporter v0.99 - (c)2007 guruware
+# File Created: 22.05.2022 22:30:11
+
+newmtl piso_lambert11SG
+	Ns 30.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.0000 0.0000 0.0000
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.0000 0.0000 0.0000
+	map_Ka marble.jpg
+	map_Kd marble.jpg
+
+newmtl display_lambert10SG
+	Ns 30.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.0000 0.0000 0.0000
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.0000 0.0000 0.0000
+	map_Ka textura-del-acero-inoxidable-primer-plateado-de-metal-141491446.jpg
+	map_Kd textura-del-acero-inoxidable-primer-plateado-de-metal-141491446.jpg
+
+newmtl display_display_lambert2SG
+	Ns 30.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.0000 0.0000 0.0000
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.0000 0.0000 0.0000
+	map_Ka diseño-de-textura-madera-marrón-natural-con-acabado-rústico-207089552.jpg
+	map_Kd diseño-de-textura-madera-marrón-natural-con-acabado-rústico-207089552.jpg
+
+newmtl Pintura3_lambert11SG
+	Ns 30.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.0000 0.0000 0.0000
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.0000 0.0000 0.0000
+	map_Ka dino3.png
+	map_Kd dino3.png
+
+newmtl edificioa_lambert27SG
+	Ns 30.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.0000 0.0000 0.0000
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.0000 0.0000 0.0000
+	map_Ka 360_F_247594175_CRmNmkK7kblefHr9UzqkndJldx7t1dS3.jpg
+	map_Kd 360_F_247594175_CRmNmkK7kblefHr9UzqkndJldx7t1dS3.jpg
+
+newmtl edificioa_lambert21SG
+	Ns 30.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.0000 0.0000 0.0000
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.0000 0.0000 0.0000
+	map_Ka textura-de-la-paja-16886027.jpg
+	map_Kd textura-de-la-paja-16886027.jpg
+
+newmtl puertasa_lambert41SG
+	Ns 30.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.0000 0.0000 0.0000
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.0000 0.0000 0.0000
+	map_Ka dark-wood-texture-antique-background-2715528.jpg
+	map_Kd dark-wood-texture-antique-background-2715528.jpg
+
+newmtl pilara_lambert61SG
+	Ns 30.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.0000 0.0000 0.0000
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.0000 0.0000 0.0000
+	map_Ka golden_texture_by_japanstoc.jpg
+	map_Kd golden_texture_by_japanstoc.jpg
+
+newmtl jardinera1_lambert59SG
+	Ns 30.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.0000 0.0000 0.0000
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.0000 0.0000 0.0000
+	map_Ka golden_texture_by_japanstoc.jpg
+	map_Kd golden_texture_by_japanstoc.jpg
+
+newmtl jardinera1_lambert44SG
+	Ns 30.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.0000 0.0000 0.0000
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.0000 0.0000 0.0000
+	map_Ka 752fbde2cab2b05cf313470f9170dc71.jpg
+	map_Kd 752fbde2cab2b05cf313470f9170dc71.jpg
+
+newmtl palma1_lambert48SG
+	Ns 30.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.0000 0.0000 0.0000
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.0000 0.0000 0.0000
+	map_Ka 752fbde2cab2b05cf313470f9170dc71.jpg
+	map_Kd 752fbde2cab2b05cf313470f9170dc71.jpg
+
+newmtl palma1_lambert46SG
+	Ns 30.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.0000 0.0000 0.0000
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.0000 0.0000 0.0000
+	map_Ka diseño-de-textura-madera-marrón-natural-con-acabado-rústico-207089552.jpg
+	map_Kd diseño-de-textura-madera-marrón-natural-con-acabado-rústico-207089552.jpg
+
+newmtl palma1_lambert47SG
+	Ns 30.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.0000 0.0000 0.0000
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.0000 0.0000 0.0000
+	map_Ka 752fbde2cab2b05cf313470f9170dc71.jpg
+	map_Kd 752fbde2cab2b05cf313470f9170dc71.jpg
+
+newmtl Pasto_lambert73SG
+	Ns 30.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.0000 0.0000 0.0000
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.0000 0.0000 0.0000
+	map_Ka grass_04.png
+	map_Kd grass_04.png
+
+newmtl edificiob_lambert25SG
+	Ns 30.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.0000 0.0000 0.0000
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.0000 0.0000 0.0000
+	map_Ka 360_F_247594175_CRmNmkK7kblefHr9UzqkndJldx7t1dS3.jpg
+	map_Kd 360_F_247594175_CRmNmkK7kblefHr9UzqkndJldx7t1dS3.jpg
+
+newmtl edificiob_lambert24SG
+	Ns 30.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.0000 0.0000 0.0000
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.0000 0.0000 0.0000
+	map_Ka textura-de-la-paja-16886027.jpg
+	map_Kd textura-de-la-paja-16886027.jpg
+
+newmtl Rocas_Rocas1_lambert7SG
+	Ns 30.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.0000 0.0000 0.0000
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.0000 0.0000 0.0000
+	map_Ka rocas.jpg
+	map_Kd rocas.jpg
+
+newmtl Rocas_Rocas1_lambert8SG
+	Ns 30.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.0000 0.0000 0.0000
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.0000 0.0000 0.0000
+	map_Ka bones.jpg
+	map_Kd bones.jpg
+
+newmtl escenario4_escenariox_lambert15SG
+	Ns 30.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.0000 0.0000 0.0000
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.0000 0.0000 0.0000
+	map_Ka textura-del-acero-inoxidable-primer-plateado-de-metal-141491446.jpg
+	map_Kd textura-del-acero-inoxidable-primer-plateado-de-metal-141491446.jpg
+
+newmtl escenario4_escenariox_lambert23SG
+	Ns 30.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.0000 0.0000 0.0000
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.0000 0.0000 0.0000
+	map_Ka textura-del-acero-inoxidable-primer-plateado-de-metal-141491446.jpg
+	map_Kd textura-del-acero-inoxidable-primer-plateado-de-metal-141491446.jpg
+
+newmtl escenario4_escenariox_lambert33SG
+	Ns 30.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.0000 0.0000 0.0000
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.0000 0.0000 0.0000
+	map_Ka textura-del-acero-inoxidable-primer-plateado-de-metal-141491446.jpg
+	map_Kd textura-del-acero-inoxidable-primer-plateado-de-metal-141491446.jpg
+
+newmtl escenario4_escenariox_lambert2SG
+	Ns 30.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.0000 0.0000 0.0000
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.0000 0.0000 0.0000
+	map_Ka when_dinosaurs_ruled_the_earth.png
+	map_Kd when_dinosaurs_ruled_the_earth.png
+
+newmtl escenario4_escenariox_lambert27SG
+	Ns 30.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.0000 0.0000 0.0000
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.0000 0.0000 0.0000
+	map_Ka textura-del-acero-inoxidable-primer-plateado-de-metal-141491446.jpg
+	map_Kd textura-del-acero-inoxidable-primer-plateado-de-metal-141491446.jpg
+
+newmtl escenario4_escenariox_lambert35SG
+	Ns 30.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.0000 0.0000 0.0000
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.0000 0.0000 0.0000
+	map_Ka textura-del-acero-inoxidable-primer-plateado-de-metal-141491446.jpg
+	map_Kd textura-del-acero-inoxidable-primer-plateado-de-metal-141491446.jpg
+
+newmtl escenario4_escenariox_lambert26SG
+	Ns 30.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.0000 0.0000 0.0000
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.0000 0.0000 0.0000
+	map_Ka textura-del-acero-inoxidable-primer-plateado-de-metal-141491446.jpg
+	map_Kd textura-del-acero-inoxidable-primer-plateado-de-metal-141491446.jpg
+
+newmtl escenario4_escenariox_lambert37SG
+	Ns 30.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.0000 0.0000 0.0000
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.0000 0.0000 0.0000
+	map_Ka textura-del-acero-inoxidable-primer-plateado-de-metal-141491446.jpg
+	map_Kd textura-del-acero-inoxidable-primer-plateado-de-metal-141491446.jpg
+
+newmtl escenario4_escenariox_lambert31SG
+	Ns 30.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.0000 0.0000 0.0000
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.0000 0.0000 0.0000
+	map_Ka textura-del-acero-inoxidable-primer-plateado-de-metal-141491446.jpg
+	map_Kd textura-del-acero-inoxidable-primer-plateado-de-metal-141491446.jpg
+
+newmtl escenario4_escenariox_lambert25SG
+	Ns 30.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.0000 0.0000 0.0000
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.0000 0.0000 0.0000
+	map_Ka diseño-de-textura-madera-marrón-natural-con-acabado-rústico-207089552.jpg
+	map_Kd diseño-de-textura-madera-marrón-natural-con-acabado-rústico-207089552.jpg
+
+newmtl escenario4_escenariox_lambert6SG
+	Ns 30.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.0000 0.0000 0.0000
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.0000 0.0000 0.0000
+	map_Ka diseño-de-textura-madera-marrón-natural-con-acabado-rústico-207089552.jpg
+	map_Kd diseño-de-textura-madera-marrón-natural-con-acabado-rústico-207089552.jpg
+
+newmtl escenario4_escenariox_lambert50SG
+	Ns 30.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.0000 0.0000 0.0000
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.0000 0.0000 0.0000
+	map_Ka textura-superficial-de-mármol-gris-7327820.jpg
+	map_Kd textura-superficial-de-mármol-gris-7327820.jpg
+	map_bump textura-superficial-de-mármol-gris-7327820.jpg
+	bump textura-superficial-de-mármol-gris-7327820.jpg
+
+newmtl escenario4_escenariox_lambert36SG
+	Ns 30.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.0000 0.0000 0.0000
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.0000 0.0000 0.0000
+	map_Ka diseño-de-textura-madera-marrón-natural-con-acabado-rústico-207089552.jpg
+	map_Kd diseño-de-textura-madera-marrón-natural-con-acabado-rústico-207089552.jpg
+
+newmtl escenario4_lambert3SG
+	Ns 30.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.0000 0.0000 0.0000
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.0000 0.0000 0.0000
+	map_Ka textura-superficial-de-mármol-gris-7327820.jpg
+	map_Kd textura-superficial-de-mármol-gris-7327820.jpg
+
+newmtl escenario4_escenariox_lambert29SG
+	Ns 30.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.0000 0.0000 0.0000
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.0000 0.0000 0.0000
+	map_Ka textura-del-acero-inoxidable-primer-plateado-de-metal-141491446.jpg
+	map_Kd textura-del-acero-inoxidable-primer-plateado-de-metal-141491446.jpg
+
+newmtl escenario4_escenariox_lambert3SG
+	Ns 30.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.0000 0.0000 0.0000
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.0000 0.0000 0.0000
+
+newmtl escenario4_lambert4SG
+	Ns 30.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.0000 0.0000 0.0000
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.0000 0.0000 0.0000
+	map_Ka textura-superficial-de-mármol-gris-7327820.jpg
+	map_Kd textura-superficial-de-mármol-gris-7327820.jpg
+
+newmtl escenario4_escenariox_lambert34SG
+	Ns 30.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.0000 0.0000 0.0000
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.0000 0.0000 0.0000
+	map_Ka diseño-de-textura-madera-marrón-natural-con-acabado-rústico-207089552.jpg
+	map_Kd diseño-de-textura-madera-marrón-natural-con-acabado-rústico-207089552.jpg
+
+newmtl escenario4_escenariox_lambert54SG
+	Ns 30.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.0000 0.0000 0.0000
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.0000 0.0000 0.0000
+	map_Ka textura-superficial-de-mármol-gris-7327820.jpg
+	map_Kd textura-superficial-de-mármol-gris-7327820.jpg
+
+newmtl escenario4_escenariox_lambert38SG
+	Ns 30.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.0000 0.0000 0.0000
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.0000 0.0000 0.0000
+	map_Ka diseño-de-textura-madera-marrón-natural-con-acabado-rústico-207089552.jpg
+	map_Kd diseño-de-textura-madera-marrón-natural-con-acabado-rústico-207089552.jpg
+
+newmtl escenario4_escenariox_lambert24SG
+	Ns 30.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.0000 0.0000 0.0000
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.0000 0.0000 0.0000
+	map_Ka diseño-de-textura-madera-marrón-natural-con-acabado-rústico-207089552.jpg
+	map_Kd diseño-de-textura-madera-marrón-natural-con-acabado-rústico-207089552.jpg
+
+newmtl escenario4_escenariox_lambert28SG
+	Ns 30.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.0000 0.0000 0.0000
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.0000 0.0000 0.0000
+	map_Ka diseño-de-textura-madera-marrón-natural-con-acabado-rústico-207089552.jpg
+	map_Kd diseño-de-textura-madera-marrón-natural-con-acabado-rústico-207089552.jpg
+
+newmtl escenario4_escenariox_initialShadingGroup
+	Ns 30.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.0000 0.0000 0.0000
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.0000 0.0000 0.0000
+	map_bump textura-superficial-de-mármol-gris-7327820.jpg
+	bump textura-superficial-de-mármol-gris-7327820.jpg
+
+newmtl escenario4_escenariox_initialShadingGroup2
+	Ns 30.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.0000 0.0000 0.0000
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.0000 0.0000 0.0000
+
+newmtl escenario4_escenariox_lambert44SG
+	Ns 30.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.0000 0.0000 0.0000
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.0000 0.0000 0.0000
+	map_Ka textura-superficial-de-mármol-gris-7327820.jpg
+	map_Kd textura-superficial-de-mármol-gris-7327820.jpg
+
+newmtl escenario4_escenariox_lambert47SG
+	Ns 30.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.0000 0.0000 0.0000
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.0000 0.0000 0.0000
+	map_Ka textura-superficial-de-mármol-gris-7327820.jpg
+	map_Kd textura-superficial-de-mármol-gris-7327820.jpg
+	map_bump textura-superficial-de-mármol-gris-7327820.jpg
+	bump textura-superficial-de-mármol-gris-7327820.jpg
+
+newmtl escenario4_escenariox_lambert43SG
+	Ns 30.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.0000 0.0000 0.0000
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.0000 0.0000 0.0000
+	map_Ka textura-superficial-de-mármol-gris-7327820.jpg
+	map_Kd textura-superficial-de-mármol-gris-7327820.jpg
+	map_bump textura-superficial-de-mármol-gris-7327820.jpg
+	bump textura-superficial-de-mármol-gris-7327820.jpg
+
+newmtl escenario4_escenariox_lambert30SG
+	Ns 30.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.0000 0.0000 0.0000
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.0000 0.0000 0.0000
+	map_Ka diseño-de-textura-madera-marrón-natural-con-acabado-rústico-207089552.jpg
+	map_Kd diseño-de-textura-madera-marrón-natural-con-acabado-rústico-207089552.jpg
+
+newmtl escenario4_escenariox_lambert52SG
+	Ns 30.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.0000 0.0000 0.0000
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.0000 0.0000 0.0000
+	map_Ka textura-superficial-de-mármol-gris-7327820.jpg
+	map_Kd textura-superficial-de-mármol-gris-7327820.jpg
+	map_bump textura-superficial-de-mármol-gris-7327820.jpg
+	bump textura-superficial-de-mármol-gris-7327820.jpg
+
+newmtl escenario4_escenariox_lambert32SG
+	Ns 30.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.0000 0.0000 0.0000
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.0000 0.0000 0.0000
+	map_Ka diseño-de-textura-madera-marrón-natural-con-acabado-rústico-207089552.jpg
+	map_Kd diseño-de-textura-madera-marrón-natural-con-acabado-rústico-207089552.jpg
+
+newmtl escenario4_escenariox_lambert48SG
+	Ns 30.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.0000 0.0000 0.0000
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.0000 0.0000 0.0000
+	map_Ka textura-superficial-de-mármol-gris-7327820.jpg
+	map_Kd textura-superficial-de-mármol-gris-7327820.jpg
+	map_bump textura-superficial-de-mármol-gris-7327820.jpg
+	bump textura-superficial-de-mármol-gris-7327820.jpg
+
+newmtl escenario4_escenariox_lambert45SG
+	Ns 30.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.0000 0.0000 0.0000
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.0000 0.0000 0.0000
+	map_Ka textura-superficial-de-mármol-gris-7327820.jpg
+	map_Kd textura-superficial-de-mármol-gris-7327820.jpg
+
+newmtl escenario4_escenariox_lambert46SG
+	Ns 30.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.0000 0.0000 0.0000
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.0000 0.0000 0.0000
+	map_Ka textura-superficial-de-mármol-gris-7327820.jpg
+	map_Kd textura-superficial-de-mármol-gris-7327820.jpg
+
+newmtl escenario4_escenariox_lambert21SG
+	Ns 30.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.0000 0.0000 0.0000
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.0000 0.0000 0.0000
+	map_Ka textura-superficial-de-mármol-gris-7327820.jpg
+	map_Kd textura-superficial-de-mármol-gris-7327820.jpg
+
+newmtl escenario4_escenariox_lambert5SG
+	Ns 30.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.0000 0.0000 0.0000
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.0000 0.0000 0.0000
+	map_Ka diseño-de-textura-madera-marrón-natural-con-acabado-rústico-207089552.jpg
+	map_Kd diseño-de-textura-madera-marrón-natural-con-acabado-rústico-207089552.jpg
+
+newmtl escenario4_escenariox_lambert9SG
+	Ns 30.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.0000 0.0000 0.0000
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.0000 0.0000 0.0000
+	map_Ka diseño-de-textura-madera-marrón-natural-con-acabado-rústico-207089552.jpg
+	map_Kd diseño-de-textura-madera-marrón-natural-con-acabado-rústico-207089552.jpg
+
+newmtl escenario4_lambert6SG
+	Ns 30.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.0000 0.0000 0.0000
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.0000 0.0000 0.0000
+	map_Ka Bron-saurio.png
+	map_Kd Bron-saurio.png
+
+newmtl escenario4_Pintura3_lambert11SG
+	Ns 30.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.0000 0.0000 0.0000
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.0000 0.0000 0.0000
+	map_Ka Tyranno.png
+	map_Kd Tyranno.png
+
+newmtl escenario4_Pintura1_lambert4SG
+	Ns 30.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.0000 0.0000 0.0000
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.0000 0.0000 0.0000
+	map_Ka dino3.png
+	map_Kd dino3.png
+
+newmtl escenario4_escenariox_lambert16SG
+	Ns 30.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.0000 0.0000 0.0000
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.0000 0.0000 0.0000
+	map_Ka textura-superficial-de-mármol-gris-7327820.jpg
+	map_Kd textura-superficial-de-mármol-gris-7327820.jpg

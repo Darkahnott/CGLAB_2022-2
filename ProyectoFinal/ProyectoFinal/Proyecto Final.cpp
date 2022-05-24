@@ -45,8 +45,7 @@ void MouseCallback( GLFWwindow *window, double xPos, double yPos );
 void DoMovement( );
 void animacion();
 
-//Guardo los moviemes de la animacion ....VARIABLES GLOBALES
-float posX = PosIni.x, posY = PosIni.y, posZ = PosIni.z, rotRodIzq = 0, rotRodDer, rotBraDer, rotBraIzq;
+
 
 // Camera
 Camera camera(glm::vec3(0.5f, 1.5f, 29.0f));
@@ -56,14 +55,16 @@ GLfloat lastY = HEIGHT / 2.0;
 bool keys[1024];
 bool firstMouse = true;
 
-GLfloat deltaTime = 0.0f;
-GLfloat lastFrame = 0.0f;
+
+float range = 0.0f;
 float rot = 90.0f, rot2 = 0.0f, rot3 = -90.0f;
 bool anim = false;
 
 float posVueloX = -13.74f, posVueloY = 7.4f, posVueloZ = 13.69f;
 
 float R2PosX = -4.756f, R2PosY = 1.2f, R2PosZ = 8.93f;
+
+
 
 
 bool circuito = false;
@@ -81,15 +82,150 @@ bool recorrido11 = false;
 bool recorrido12 = false;
 bool recorrido13 = false;
 
+// Deltatime
+GLfloat deltaTime = 0.0f;	// Time between current frame and last frame
+GLfloat lastFrame = 0.0f;  	// Time of last frame
+
+
+float tiempo;
+
+
+float RaptorX = 21.0f, RaptorY = 1.5f, RaptorZ = 15.0f, RaptorRot = -90.0f, RaptorPataI, RaptorPataD, RaptorCola;
+
+
+#define MAX_FRAMES 60
+int i_max_steps = 90;
+int i_curr_steps = 0;
+
+// Keyframes
+
+//Guardo los moviemes de la animacion ....VARIABLES GLOBALES
+float posX = PosIni.x, posY = PosIni.y, posZ = PosIni.z;
+
+typedef struct _frame
+{
+    //Variables para GUARDAR Key Frames
+
+    //Variables del raptor
+    //Posición
+    float RaptorX; //Posición
+    float RapIncX; //Incremento
+    float RaptorY;
+    float RapIncY;
+    float RaptorZ;
+    float RapIncZ;
+    //Ángulo Cuerpo
+    float RaptorRot;
+    float RapIncRot;
+    //Ángulo patas
+    float RaptorPataI;
+    float RapIncPI;
+    float RaptorPataD;
+    float RapIncPD;
+    //Ángulo cola
+    float RaptorCola;
+    float RapIncCola;
+
+
+}FRAME;
+
+FRAME KeyFrame[MAX_FRAMES];
+int FrameIndex = 0;	//introducir datos
+bool play = false;
+int playIndex = 0;
+
 // Positions of the point lights
 glm::vec3 pointLightPositions[] = {
-    glm::vec3(-1.29f,2.944f,22.75f),
-    glm::vec3(0,0,0),
-    glm::vec3(0,0,0),
-    glm::vec3(0,0,0)
+    //PuertaIZQ
+    glm::vec3(-1.14f,1.91f,23.0f),
+    glm::vec3(-1.13f,2.94f,23.0f),
+    glm::vec3(-1.14f,3.78f,23.0f),
+    //PuertaDER
+    glm::vec3(2.26f,1.91f,23.0f),
+    glm::vec3(2.26f,2.94f,23.0f),
+    glm::vec3(2.26f,3.78f,23.0f),
+    //Dentro del café
+    glm::vec3(-9.45f,2.74f,9.0f),
+    //Letrero cafe
+    glm::vec3(-6.58f,2.61f,10.45f),
+    //Parque
+    glm::vec3(-4.93f,3.23f,1.36f),
+    glm::vec3(-11.48f,3.23f,1.31f),
+    glm::vec3(-17.66,3.23f,1.30f),
+    glm::vec3(-17.82,3.23f,-6.32f),
+    glm::vec3(-17.52f,3.23f,-15.45),
+    glm::vec3(-11.02f,3.23f,-15.77),
+    glm::vec3(-4.89f,3.23f,-15.82f),
+    glm::vec3(2.08f,3.23f,-15.33f),
+    //Edificio
+    glm::vec3(11.69f,0.1f,-6.04f),
+    glm::vec3(18.07f,0.1f,-6.04f),
+    glm::vec3(14.69f,2.24f,-9.69f),
+    glm::vec3(14.81f,1.28f,-11.43f),
+    glm::vec3(2.05f,3.23f,-5.83f)
 };
 
 glm::vec3 LightP1;
+
+//void saveFrame(void)
+//{
+//
+//    printf("\nFrameIndex %d\n", FrameIndex);
+//
+//    KeyFrame[FrameIndex].posX = posX;
+//    KeyFrame[FrameIndex].posY = posY;
+//    KeyFrame[FrameIndex].posZ = posZ;
+//
+//    KeyFrame[FrameIndex].rotRodIzq = rotRodIzq;
+//    KeyFrame[FrameIndex].rotRodDer = rotRodDer;
+//
+//    KeyFrame[FrameIndex].rotBraDer = rotBraDer;
+//    KeyFrame[FrameIndex].rotBraIzq = rotBraIzq;
+//
+//
+//    FrameIndex++;
+//}
+
+void resetElements(void)
+{
+    
+
+    //Raptor Posición
+    RaptorX = KeyFrame[0].RaptorX;
+    RaptorY = KeyFrame[0].RaptorY;
+    RaptorZ = KeyFrame[0].RaptorZ;
+    //Raptor Posición
+    RaptorRot = KeyFrame[0].RaptorRot;
+    //Angulos patas y cola
+    RaptorPataI = KeyFrame[0].RaptorPataI;
+    RaptorPataD = KeyFrame[0].RaptorPataD;
+    RaptorCola = KeyFrame[0].RaptorCola;
+
+    
+
+}
+
+void interpolation(void)
+{
+
+
+    //Raptor Posición
+    KeyFrame[playIndex].RapIncX = (KeyFrame[playIndex + 1].RaptorX - KeyFrame[playIndex].RaptorX) / i_max_steps;
+    KeyFrame[playIndex].RapIncY = (KeyFrame[playIndex + 1].RaptorY - KeyFrame[playIndex].RaptorY) / i_max_steps;
+    KeyFrame[playIndex].RapIncZ = (KeyFrame[playIndex + 1].RaptorZ - KeyFrame[playIndex].RaptorZ) / i_max_steps;
+    //Raptor Ángulo
+    KeyFrame[playIndex].RapIncRot = (KeyFrame[playIndex + 1].RaptorRot - KeyFrame[playIndex].RaptorRot) / i_max_steps;
+    //Patas y cola
+    KeyFrame[playIndex].RapIncPI = (KeyFrame[playIndex + 1].RaptorPataI - KeyFrame[playIndex].RaptorPataI) / i_max_steps;
+    KeyFrame[playIndex].RapIncPD = (KeyFrame[playIndex + 1].RaptorPataD - KeyFrame[playIndex].RaptorPataD) / i_max_steps;
+    KeyFrame[playIndex].RapIncCola = (KeyFrame[playIndex + 1].RaptorCola - KeyFrame[playIndex].RaptorCola) / i_max_steps;
+
+
+    
+
+
+
+}
 
 
 int main( )
@@ -104,7 +240,7 @@ int main( )
     glfwWindowHint( GLFW_RESIZABLE, GL_FALSE );
     
     // Create a GLFWwindow object that we can use for GLFW's functions
-    GLFWwindow *window = glfwCreateWindow( WIDTH, HEIGHT, "Proyecto final - Saul Esparza - Cafe", nullptr, nullptr );
+    GLFWwindow *window = glfwCreateWindow( WIDTH, HEIGHT, "Proyecto Final - Esparza-Sanchez", nullptr, nullptr );
     
     if ( nullptr == window )
     {
@@ -121,6 +257,7 @@ int main( )
     // Set the required callback functions
     glfwSetKeyCallback( window, KeyCallback );
     glfwSetCursorPosCallback(window, MouseCallback);
+    printf("%f", glfwGetTime());
     
     // GLFW Options -- Activado para contener el mouse y poder mirar el escenario más fácil
     glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
@@ -216,8 +353,6 @@ int main( )
 
     };
 
-
-
     // First, set the container's VAO (and VBO)
     GLuint VBO, VAO, EBO;
     glGenVertexArrays(1, &VAO);
@@ -241,25 +376,39 @@ int main( )
     glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
     glEnableVertexAttribArray(2);
 
-    // Load textures
+    // Load textures \\
 
 
-    //Base del escenario
-    Model Base((char*)"Models/Base/Base.obj");
+    ////Base del escenario
+    Model Base((char*)"Models/Base2/Base.obj");
 
-    //Cafetería
-    Model Cafe((char*)"Models/Cafe New/Cafe.obj");
+    ////Cafetería
+    //Model Cafe((char*)"Models/Cafe New/Cafe.obj");
 
-    //Dinosaurio
-    Model CuerpoDino((char*)"Models/Dino/body.obj");
-    Model AlaIzq((char*)"Models/Dino/AlaIzq.obj");
-    Model AlaDer((char*)"Models/Dino/AlaDer.obj");
+    ////Dinosaurio volador
+    //Model CuerpoDino((char*)"Models/Dino/body.obj");
+    //Model AlaIzq((char*)"Models/Dino/AlaIzq.obj");
+    //Model AlaDer((char*)"Models/Dino/AlaDer.obj");
 
-    //Ventilador
-    Model BaseVentilador((char*)"Models/Vent/Base.obj");
-    Model Aspas((char*)"Models/Vent/Aspas.obj");
-    Model Vader((char*)"Models/Vader/Vader.obj");
-    Model R2D2((char*)"Models/R2D2/R2.obj");
+    ////Ventilador
+    //Model BaseVentilador((char*)"Models/Vent/Base.obj");
+    //Model Aspas((char*)"Models/Vent/Aspas.obj");
+    //Model Vader((char*)"Models/Vader/Vader.obj");
+    //Model R2D2((char*)"Models/R2D2/R2.obj");
+
+    ////Edificio
+    //Model Edif((char*)"Models/EdificioA/Edif.obj");
+
+    //Planta
+    Model Plant((char*)"Models/Plant/Fern.obj");
+
+    //Raptor
+    Model RaptorC((char*)"Models/Raptor/Cuerpo.obj");
+    Model RaptorPD((char*)"Models/Raptor/PataDer.obj");
+    Model RaptorPI((char*)"Models/Raptor/PataIzq.obj");
+    Model RaptorT((char*)"Models/Raptor/Cola.obj");
+
+
 
 
     GLuint texture;
@@ -273,6 +422,114 @@ int main( )
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST_MIPMAP_NEAREST);
   
+    
+
+    //Valores de los keyframes para los movimientos de las animaciones
+ 
+    //Movimiento 0
+    //KF Movimiento Raptor
+    KeyFrame[FrameIndex].RaptorX = 21.0f;
+    KeyFrame[FrameIndex].RaptorY = 1.5f;
+    KeyFrame[FrameIndex].RaptorZ = 15.0f;
+    //KF Ángulo Raptor
+    KeyFrame[FrameIndex].RaptorRot = -90.0f;
+    //Aumentar el índice
+    FrameIndex++;
+
+    //Movimiento 1
+    //KF Movimiento Raptor
+    KeyFrame[FrameIndex].RaptorX = 17.0f;
+    KeyFrame[FrameIndex].RaptorY = 1.5f;
+    KeyFrame[FrameIndex].RaptorZ = 15.0f;
+    //KF Ángulo Raptor
+    KeyFrame[FrameIndex].RaptorRot = -90.0f;
+    //KF Patas
+    KeyFrame[FrameIndex].RaptorPataD = 12.0f;
+    KeyFrame[FrameIndex].RaptorPataI = -10.0f;
+    //Aumentar el índice
+    FrameIndex++;
+
+    //Movimiento 2
+    //KF Movimiento Raptor
+    KeyFrame[FrameIndex].RaptorX = 13.0f;
+    KeyFrame[FrameIndex].RaptorY = 1.5f;
+    KeyFrame[FrameIndex].RaptorZ = 15.0f;
+    //KF Ángulo Raptor
+    KeyFrame[FrameIndex].RaptorRot = -90.0f;
+    //KF Patas
+    KeyFrame[FrameIndex].RaptorPataD = -10.0f;
+    KeyFrame[FrameIndex].RaptorPataI = 12.0f;
+    //Aumentar el índice
+    FrameIndex++;
+
+    //Movimiento 3
+    //KF Movimiento Raptor
+    KeyFrame[FrameIndex].RaptorX = 13.0f;
+    KeyFrame[FrameIndex].RaptorY = 1.5f;
+    KeyFrame[FrameIndex].RaptorZ = 0.0f;
+    //KF Ángulo Raptor
+    KeyFrame[FrameIndex].RaptorRot = -190.0f;
+    //KF Patas
+    KeyFrame[FrameIndex].RaptorPataD = 12.0f;
+    KeyFrame[FrameIndex].RaptorPataI = -10.0f;
+    //Aumentar el índice
+    FrameIndex++;
+
+    //Movimiento 4
+    //KF Movimiento Raptor
+    KeyFrame[FrameIndex].RaptorX = 10.0f;
+    KeyFrame[FrameIndex].RaptorY = 1.5f;
+    KeyFrame[FrameIndex].RaptorZ = -10.0f;
+    //KF Ángulo Raptor
+    KeyFrame[FrameIndex].RaptorRot = -90.0f;
+    //KF Patas
+    KeyFrame[FrameIndex].RaptorPataD = -10.0f;
+    KeyFrame[FrameIndex].RaptorPataI = 12.0f;
+    //Aumentar el índice
+    FrameIndex++;
+
+    //Movimiento 5
+    //KF Movimiento Raptor
+    KeyFrame[FrameIndex].RaptorX = 4.0f;
+    KeyFrame[FrameIndex].RaptorY = 1.5f;
+    KeyFrame[FrameIndex].RaptorZ = -10.0f;
+    //KF Ángulo Raptor
+    KeyFrame[FrameIndex].RaptorRot = -90.0f;
+    //KF Patas
+    KeyFrame[FrameIndex].RaptorPataD = 12.0f;
+    KeyFrame[FrameIndex].RaptorPataI = -10.0f;
+    //Aumentar el índice
+    FrameIndex++;
+
+    //Movimiento 6
+    //KF Movimiento Raptor
+    KeyFrame[FrameIndex].RaptorX = 0.0f;
+    KeyFrame[FrameIndex].RaptorY = 1.5f;
+    KeyFrame[FrameIndex].RaptorZ = -10.0f;
+    //KF Ángulo Raptor
+    KeyFrame[FrameIndex].RaptorRot = -90.0f;
+    //KF Patas
+    KeyFrame[FrameIndex].RaptorPataD = -10.0f;
+    KeyFrame[FrameIndex].RaptorPataI = 12.0f;
+    //Aumentar el índice
+    FrameIndex++;
+
+    //Movimiento 7
+    //KF Movimiento Raptor
+    KeyFrame[FrameIndex].RaptorX = -1.0f;
+    KeyFrame[FrameIndex].RaptorY = -3.0f;
+    KeyFrame[FrameIndex].RaptorZ = -10.0f;
+    //KF Ángulo Raptor
+    KeyFrame[FrameIndex].RaptorRot = -90.0f;
+    //KF Patas
+    KeyFrame[FrameIndex].RaptorPataD = 12.0f;
+    KeyFrame[FrameIndex].RaptorPataI = -10.0f;
+    //Aumentar el índice
+    FrameIndex++;
+
+
+
+
 
 
     //SkyBox
@@ -316,6 +573,11 @@ int main( )
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 
+        
+
+
+
+
         // Use cooresponding shader when setting uniforms/drawing objects
         lightingShader.Use();
         GLint viewPosLoc = glGetUniformLocation(lightingShader.Program, "viewPos");
@@ -334,41 +596,183 @@ int main( )
         glUniform3f(glGetUniformLocation(lightingShader.Program, "dirLight.diffuse"), 0.1f, 0.1f, 0.1f);
         glUniform3f(glGetUniformLocation(lightingShader.Program, "dirLight.specular"), 0.4f, 0.4f, 0.4f);
 
+
+        //Luces Puerta
         // Point light 1
         glUniform3f(glGetUniformLocation(lightingShader.Program, "pointLights[0].position"), pointLightPositions[0].x, pointLightPositions[0].y, pointLightPositions[0].z);
-        glUniform3f(glGetUniformLocation(lightingShader.Program, "pointLights[0].ambient"), 1.0f, 0.00f, 0.00f);
-        glUniform3f(glGetUniformLocation(lightingShader.Program, "pointLights[0].diffuse"), LightP1.x, LightP1.y, LightP1.z);
-        glUniform3f(glGetUniformLocation(lightingShader.Program, "pointLights[0].specular"), LightP1.x, LightP1.y, LightP1.z);
+        glUniform3f(glGetUniformLocation(lightingShader.Program, "pointLights[0].ambient"), 0.921f, 0.807f, 0.239f);
+        glUniform3f(glGetUniformLocation(lightingShader.Program, "pointLights[0].diffuse"), 0.5f, 0.5f, 0.5f);
+        glUniform3f(glGetUniformLocation(lightingShader.Program, "pointLights[0].specular"), 1.0f, 1.0f, 0.0f);
         glUniform1f(glGetUniformLocation(lightingShader.Program, "pointLights[0].constant"), 1.0f);
         glUniform1f(glGetUniformLocation(lightingShader.Program, "pointLights[0].linear"), 0.7f);
         glUniform1f(glGetUniformLocation(lightingShader.Program, "pointLights[0].quadratic"), 1.8f);
-
         // Point light 2
         glUniform3f(glGetUniformLocation(lightingShader.Program, "pointLights[1].position"), pointLightPositions[1].x, pointLightPositions[1].y, pointLightPositions[1].z);
-        glUniform3f(glGetUniformLocation(lightingShader.Program, "pointLights[1].ambient"), 0.05f, 0.05f, 0.05f);
+        glUniform3f(glGetUniformLocation(lightingShader.Program, "pointLights[1].ambient"), 0.921f, 0.807f, 0.239f);
         glUniform3f(glGetUniformLocation(lightingShader.Program, "pointLights[1].diffuse"), 0.5f, 0.5f, 0.5f);
         glUniform3f(glGetUniformLocation(lightingShader.Program, "pointLights[1].specular"), 1.0f, 1.0f, 0.0f);
         glUniform1f(glGetUniformLocation(lightingShader.Program, "pointLights[1].constant"), 1.0f);
-        glUniform1f(glGetUniformLocation(lightingShader.Program, "pointLights[1].linear"), 0.09f);
-        glUniform1f(glGetUniformLocation(lightingShader.Program, "pointLights[1].quadratic"), 0.032f);
-
+        glUniform1f(glGetUniformLocation(lightingShader.Program, "pointLights[1].linear"), 0.7f);
+        glUniform1f(glGetUniformLocation(lightingShader.Program, "pointLights[1].quadratic"), 1.8f);
         // Point light 3
         glUniform3f(glGetUniformLocation(lightingShader.Program, "pointLights[2].position"), pointLightPositions[2].x, pointLightPositions[2].y, pointLightPositions[2].z);
-        glUniform3f(glGetUniformLocation(lightingShader.Program, "pointLights[2].ambient"), 0.05f, 0.05f, 0.05f);
-        glUniform3f(glGetUniformLocation(lightingShader.Program, "pointLights[2].diffuse"), 0.0f, 0.5f, 0.5f);
-        glUniform3f(glGetUniformLocation(lightingShader.Program, "pointLights[2].specular"), 0.0f, 1.0f, 1.0f);
+        glUniform3f(glGetUniformLocation(lightingShader.Program, "pointLights[2].ambient"), 0.921f, 0.807f, 0.239f);
+        glUniform3f(glGetUniformLocation(lightingShader.Program, "pointLights[2].diffuse"), 0.5f, 0.5f, 0.5f);
+        glUniform3f(glGetUniformLocation(lightingShader.Program, "pointLights[2].specular"), 1.0f, 1.0f, 0.0f);
         glUniform1f(glGetUniformLocation(lightingShader.Program, "pointLights[2].constant"), 1.0f);
-        glUniform1f(glGetUniformLocation(lightingShader.Program, "pointLights[2].linear"), 0.09f);
-        glUniform1f(glGetUniformLocation(lightingShader.Program, "pointLights[2].quadratic"), 0.032f);
-
+        glUniform1f(glGetUniformLocation(lightingShader.Program, "pointLights[2].linear"), 0.7f);
+        glUniform1f(glGetUniformLocation(lightingShader.Program, "pointLights[2].quadratic"), 1.8f);
         // Point light 4
         glUniform3f(glGetUniformLocation(lightingShader.Program, "pointLights[3].position"), pointLightPositions[3].x, pointLightPositions[3].y, pointLightPositions[3].z);
-        glUniform3f(glGetUniformLocation(lightingShader.Program, "pointLights[3].ambient"), 0.05f, 0.05f, 0.05f);
+        glUniform3f(glGetUniformLocation(lightingShader.Program, "pointLights[3].ambient"), 0.921f, 0.807f, 0.239f);
         glUniform3f(glGetUniformLocation(lightingShader.Program, "pointLights[3].diffuse"), 0.5f, 0.5f, 0.5f);
-        glUniform3f(glGetUniformLocation(lightingShader.Program, "pointLights[3].specular"), 1.0f, 0.0f, 1.0f);
+        glUniform3f(glGetUniformLocation(lightingShader.Program, "pointLights[3].specular"), 1.0f, 1.0f, 0.0f);
         glUniform1f(glGetUniformLocation(lightingShader.Program, "pointLights[3].constant"), 1.0f);
-        glUniform1f(glGetUniformLocation(lightingShader.Program, "pointLights[3].linear"), 0.09f);
-        glUniform1f(glGetUniformLocation(lightingShader.Program, "pointLights[3].quadratic"), 0.032f);
+        glUniform1f(glGetUniformLocation(lightingShader.Program, "pointLights[3].linear"), 0.7f);
+        glUniform1f(glGetUniformLocation(lightingShader.Program, "pointLights[3].quadratic"), 1.8f);
+        // Point light 5
+        glUniform3f(glGetUniformLocation(lightingShader.Program, "pointLights[4].position"), pointLightPositions[4].x, pointLightPositions[4].y, pointLightPositions[4].z);
+        glUniform3f(glGetUniformLocation(lightingShader.Program, "pointLights[4].ambient"), 0.921f, 0.807f, 0.239f);
+        glUniform3f(glGetUniformLocation(lightingShader.Program, "pointLights[4].diffuse"), 0.5f, 0.5f, 0.5f);
+        glUniform3f(glGetUniformLocation(lightingShader.Program, "pointLights[4].specular"), 1.0f, 1.0f, 0.0f);
+        glUniform1f(glGetUniformLocation(lightingShader.Program, "pointLights[4].constant"), 1.0f);
+        glUniform1f(glGetUniformLocation(lightingShader.Program, "pointLights[4].linear"), 0.7f);
+        glUniform1f(glGetUniformLocation(lightingShader.Program, "pointLights[4].quadratic"), 1.8f);
+        // Point light 6
+        glUniform3f(glGetUniformLocation(lightingShader.Program, "pointLights[5].position"), pointLightPositions[5].x, pointLightPositions[5].y, pointLightPositions[5].z);
+        glUniform3f(glGetUniformLocation(lightingShader.Program, "pointLights[5].ambient"), 0.921f, 0.807f, 0.239f);
+        glUniform3f(glGetUniformLocation(lightingShader.Program, "pointLights[5].diffuse"), 0.5f, 0.5f, 0.5f);
+        glUniform3f(glGetUniformLocation(lightingShader.Program, "pointLights[5].specular"), 1.0f, 1.0f, 0.0f);
+        glUniform1f(glGetUniformLocation(lightingShader.Program, "pointLights[5].constant"), 1.0f);
+        glUniform1f(glGetUniformLocation(lightingShader.Program, "pointLights[5].linear"), 0.7f);
+        glUniform1f(glGetUniformLocation(lightingShader.Program, "pointLights[5].quadratic"), 1.8f);
+
+        //Luces café
+        // Point light 7
+        glUniform3f(glGetUniformLocation(lightingShader.Program, "pointLights[6].position"), pointLightPositions[6].x, pointLightPositions[6].y, pointLightPositions[6].z);
+        glUniform3f(glGetUniformLocation(lightingShader.Program, "pointLights[6].ambient"), 0.972f, 1.0f, 0.078f);
+        glUniform3f(glGetUniformLocation(lightingShader.Program, "pointLights[6].diffuse"), 0.5f, 0.5f, 0.5f);
+        glUniform3f(glGetUniformLocation(lightingShader.Program, "pointLights[6].specular"), 1.0f, 1.0f, 0.0f);
+        glUniform1f(glGetUniformLocation(lightingShader.Program, "pointLights[6].constant"), 1.0f);
+        glUniform1f(glGetUniformLocation(lightingShader.Program, "pointLights[6].linear"), 0.7f);
+        glUniform1f(glGetUniformLocation(lightingShader.Program, "pointLights[6].quadratic"), 1.8f);
+        //Letrero CAFE
+        // Point light 8
+        glUniform3f(glGetUniformLocation(lightingShader.Program, "pointLights[7].position"), pointLightPositions[7].x, pointLightPositions[7].y, pointLightPositions[7].z);
+        glUniform3f(glGetUniformLocation(lightingShader.Program, "pointLights[7].ambient"), 0.423f, 0.878f, 0.956f);
+        glUniform3f(glGetUniformLocation(lightingShader.Program, "pointLights[7].diffuse"), 0.5f, 0.5f, 0.5f);
+        glUniform3f(glGetUniformLocation(lightingShader.Program, "pointLights[7].specular"), 1.0f, 1.0f, 0.0f);
+        glUniform1f(glGetUniformLocation(lightingShader.Program, "pointLights[7].constant"), 1.0f);
+        glUniform1f(glGetUniformLocation(lightingShader.Program, "pointLights[7].linear"), 0.7f);
+        glUniform1f(glGetUniformLocation(lightingShader.Program, "pointLights[7].quadratic"), 1.8f);
+
+        //Luces del parque
+        // Point light 9
+        glUniform3f(glGetUniformLocation(lightingShader.Program, "pointLights[8].position"), pointLightPositions[8].x, pointLightPositions[8].y, pointLightPositions[8].z);
+        glUniform3f(glGetUniformLocation(lightingShader.Program, "pointLights[8].ambient"), 0.423f, 0.878f, 0.956f);
+        glUniform3f(glGetUniformLocation(lightingShader.Program, "pointLights[8].diffuse"), 0.5f, 0.5f, 0.5f);
+        glUniform3f(glGetUniformLocation(lightingShader.Program, "pointLights[8].specular"), 1.0f, 1.0f, 0.0f);
+        glUniform1f(glGetUniformLocation(lightingShader.Program, "pointLights[8].constant"), 1.0f);
+        glUniform1f(glGetUniformLocation(lightingShader.Program, "pointLights[8].linear"), 0.22f);
+        glUniform1f(glGetUniformLocation(lightingShader.Program, "pointLights[8].quadratic"), 0.20f);
+        // Point light 10
+        glUniform3f(glGetUniformLocation(lightingShader.Program, "pointLights[9].position"), pointLightPositions[9].x, pointLightPositions[9].y, pointLightPositions[9].z);
+        glUniform3f(glGetUniformLocation(lightingShader.Program, "pointLights[9].ambient"), 0.423f, 0.878f, 0.956f);
+        glUniform3f(glGetUniformLocation(lightingShader.Program, "pointLights[9].diffuse"), 0.5f, 0.5f, 0.5f);
+        glUniform3f(glGetUniformLocation(lightingShader.Program, "pointLights[9].specular"), 1.0f, 1.0f, 0.0f);
+        glUniform1f(glGetUniformLocation(lightingShader.Program, "pointLights[9].constant"), 1.0f);
+        glUniform1f(glGetUniformLocation(lightingShader.Program, "pointLights[9].linear"), 0.22f);
+        glUniform1f(glGetUniformLocation(lightingShader.Program, "pointLights[9].quadratic"), 0.20f);
+        // Point light 11
+        glUniform3f(glGetUniformLocation(lightingShader.Program, "pointLights[10].position"), pointLightPositions[10].x, pointLightPositions[10].y, pointLightPositions[10].z);
+        glUniform3f(glGetUniformLocation(lightingShader.Program, "pointLights[10].ambient"), 0.423f, 0.878f, 0.956f);
+        glUniform3f(glGetUniformLocation(lightingShader.Program, "pointLights[10].diffuse"), 0.5f, 0.5f, 0.5f);
+        glUniform3f(glGetUniformLocation(lightingShader.Program, "pointLights[10].specular"), 1.0f, 1.0f, 0.0f);
+        glUniform1f(glGetUniformLocation(lightingShader.Program, "pointLights[10].constant"), 1.0f);
+        glUniform1f(glGetUniformLocation(lightingShader.Program, "pointLights[10].linear"), 0.22f);
+        glUniform1f(glGetUniformLocation(lightingShader.Program, "pointLights[10].quadratic"), 0.20f);
+        // Point light 12
+        glUniform3f(glGetUniformLocation(lightingShader.Program, "pointLights[11].position"), pointLightPositions[11].x, pointLightPositions[11].y, pointLightPositions[11].z);
+        glUniform3f(glGetUniformLocation(lightingShader.Program, "pointLights[11].ambient"), 0.423f, 0.878f, 0.956f);
+        glUniform3f(glGetUniformLocation(lightingShader.Program, "pointLights[11].diffuse"), 0.5f, 0.5f, 0.5f);
+        glUniform3f(glGetUniformLocation(lightingShader.Program, "pointLights[11].specular"), 1.0f, 1.0f, 0.0f);
+        glUniform1f(glGetUniformLocation(lightingShader.Program, "pointLights[11].constant"), 1.0f);
+        glUniform1f(glGetUniformLocation(lightingShader.Program, "pointLights[11].linear"), 0.22f);
+        glUniform1f(glGetUniformLocation(lightingShader.Program, "pointLights[11].quadratic"), 0.20f);
+        // Point light 13
+        glUniform3f(glGetUniformLocation(lightingShader.Program, "pointLights[12].position"), pointLightPositions[12].x, pointLightPositions[12].y, pointLightPositions[12].z);
+        glUniform3f(glGetUniformLocation(lightingShader.Program, "pointLights[12].ambient"), 0.423f, 0.878f, 0.956f);
+        glUniform3f(glGetUniformLocation(lightingShader.Program, "pointLights[12].diffuse"), 0.5f, 0.5f, 0.5f);
+        glUniform3f(glGetUniformLocation(lightingShader.Program, "pointLights[12].specular"), 1.0f, 1.0f, 0.0f);
+        glUniform1f(glGetUniformLocation(lightingShader.Program, "pointLights[12].constant"), 1.0f);
+        glUniform1f(glGetUniformLocation(lightingShader.Program, "pointLights[12].linear"), 0.22f);
+        glUniform1f(glGetUniformLocation(lightingShader.Program, "pointLights[12].quadratic"), 0.20f);
+        // Point light 14
+        glUniform3f(glGetUniformLocation(lightingShader.Program, "pointLights[13].position"), pointLightPositions[13].x, pointLightPositions[13].y, pointLightPositions[13].z);
+        glUniform3f(glGetUniformLocation(lightingShader.Program, "pointLights[13].ambient"), 0.423f, 0.878f, 0.956f);
+        glUniform3f(glGetUniformLocation(lightingShader.Program, "pointLights[13].diffuse"), 0.5f, 0.5f, 0.5f);
+        glUniform3f(glGetUniformLocation(lightingShader.Program, "pointLights[13].specular"), 1.0f, 1.0f, 0.0f);
+        glUniform1f(glGetUniformLocation(lightingShader.Program, "pointLights[13].constant"), 1.0f);
+        glUniform1f(glGetUniformLocation(lightingShader.Program, "pointLights[13].linear"), 0.22f);
+        glUniform1f(glGetUniformLocation(lightingShader.Program, "pointLights[13].quadratic"), 0.20f);
+        // Point light 15
+        glUniform3f(glGetUniformLocation(lightingShader.Program, "pointLights[14].position"), pointLightPositions[14].x, pointLightPositions[14].y, pointLightPositions[14].z);
+        glUniform3f(glGetUniformLocation(lightingShader.Program, "pointLights[14].ambient"), 0.423f, 0.878f, 0.956f);
+        glUniform3f(glGetUniformLocation(lightingShader.Program, "pointLights[14].diffuse"), 0.5f, 0.5f, 0.5f);
+        glUniform3f(glGetUniformLocation(lightingShader.Program, "pointLights[14].specular"), 1.0f, 1.0f, 0.0f);
+        glUniform1f(glGetUniformLocation(lightingShader.Program, "pointLights[14].constant"), 1.0f);
+        glUniform1f(glGetUniformLocation(lightingShader.Program, "pointLights[14].linear"), 0.22f);
+        glUniform1f(glGetUniformLocation(lightingShader.Program, "pointLights[14].quadratic"), 0.20f);
+        // Point light 16
+        glUniform3f(glGetUniformLocation(lightingShader.Program, "pointLights[15].position"), pointLightPositions[15].x, pointLightPositions[15].y, pointLightPositions[15].z);
+        glUniform3f(glGetUniformLocation(lightingShader.Program, "pointLights[15].ambient"), 0.423f, 0.878f, 0.956f);
+        glUniform3f(glGetUniformLocation(lightingShader.Program, "pointLights[15].diffuse"), 0.5f, 0.5f, 0.5f);
+        glUniform3f(glGetUniformLocation(lightingShader.Program, "pointLights[15].specular"), 1.0f, 1.0f, 0.0f);
+        glUniform1f(glGetUniformLocation(lightingShader.Program, "pointLights[15].constant"), 1.0f);
+        glUniform1f(glGetUniformLocation(lightingShader.Program, "pointLights[15].linear"), 0.22f);
+        glUniform1f(glGetUniformLocation(lightingShader.Program, "pointLights[15].quadratic"), 0.20f);
+        // Point light 17
+        glUniform3f(glGetUniformLocation(lightingShader.Program, "pointLights[16].position"), pointLightPositions[16].x, pointLightPositions[16].y, pointLightPositions[16].z);
+        glUniform3f(glGetUniformLocation(lightingShader.Program, "pointLights[16].ambient"), 0.423f, 0.878f, 0.956f);
+        glUniform3f(glGetUniformLocation(lightingShader.Program, "pointLights[16].diffuse"), 0.5f, 0.5f, 0.5f);
+        glUniform3f(glGetUniformLocation(lightingShader.Program, "pointLights[16].specular"), 1.0f, 1.0f, 0.0f);
+        glUniform1f(glGetUniformLocation(lightingShader.Program, "pointLights[16].constant"), 1.0f);
+        glUniform1f(glGetUniformLocation(lightingShader.Program, "pointLights[16].linear"), 0.22f);
+        glUniform1f(glGetUniformLocation(lightingShader.Program, "pointLights[16].quadratic"), 0.20f);
+
+        //Luces del edificio
+        // Point light 18
+        glUniform3f(glGetUniformLocation(lightingShader.Program, "pointLights[17].position"), pointLightPositions[17].x, pointLightPositions[17].y, pointLightPositions[17].z);
+        glUniform3f(glGetUniformLocation(lightingShader.Program, "pointLights[17].ambient"), 0.6f, 0.6f, 0.6f);
+        glUniform3f(glGetUniformLocation(lightingShader.Program, "pointLights[17].diffuse"), 0.5f, 0.5f, 0.5f);
+        glUniform3f(glGetUniformLocation(lightingShader.Program, "pointLights[17].specular"), 1.0f, 1.0f, 0.0f);
+        glUniform1f(glGetUniformLocation(lightingShader.Program, "pointLights[17].constant"), 1.0f);
+        glUniform1f(glGetUniformLocation(lightingShader.Program, "pointLights[17].linear"), 0.22f);
+        glUniform1f(glGetUniformLocation(lightingShader.Program, "pointLights[17].quadratic"), 0.44f);
+        // Point light 19
+        glUniform3f(glGetUniformLocation(lightingShader.Program, "pointLights[18].position"), pointLightPositions[18].x, pointLightPositions[18].y, pointLightPositions[18].z);
+        glUniform3f(glGetUniformLocation(lightingShader.Program, "pointLights[18].ambient"), 0.6f, 0.6f, 0.6f);
+        glUniform3f(glGetUniformLocation(lightingShader.Program, "pointLights[18].diffuse"), 0.5f, 0.5f, 0.5f);
+        glUniform3f(glGetUniformLocation(lightingShader.Program, "pointLights[18].specular"), 1.0f, 1.0f, 0.0f);
+        glUniform1f(glGetUniformLocation(lightingShader.Program, "pointLights[18].constant"), 1.0f);
+        glUniform1f(glGetUniformLocation(lightingShader.Program, "pointLights[18].linear"), 0.22f);
+        glUniform1f(glGetUniformLocation(lightingShader.Program, "pointLights[18].quadratic"), 0.44f);
+        // Point light 20
+        glUniform3f(glGetUniformLocation(lightingShader.Program, "pointLights[19].position"), pointLightPositions[19].x, pointLightPositions[19].y, pointLightPositions[19].z);
+        glUniform3f(glGetUniformLocation(lightingShader.Program, "pointLights[19].ambient"), 0.6f, 0.6f, 0.6f);
+        glUniform3f(glGetUniformLocation(lightingShader.Program, "pointLights[19].diffuse"), 0.5f, 0.5f, 0.5f);
+        glUniform3f(glGetUniformLocation(lightingShader.Program, "pointLights[19].specular"), 1.0f, 1.0f, 0.0f);
+        glUniform1f(glGetUniformLocation(lightingShader.Program, "pointLights[19].constant"), 1.0f);
+        glUniform1f(glGetUniformLocation(lightingShader.Program, "pointLights[19].linear"), 0.1f);
+        glUniform1f(glGetUniformLocation(lightingShader.Program, "pointLights[19].quadratic"), 3.5f);
+        // Point light 20
+        glUniform3f(glGetUniformLocation(lightingShader.Program, "pointLights[20].position"), pointLightPositions[20].x, pointLightPositions[20].y, pointLightPositions[20].z);
+        glUniform3f(glGetUniformLocation(lightingShader.Program, "pointLights[20].ambient"), 0.6f, 0.6f, 0.6f);
+        glUniform3f(glGetUniformLocation(lightingShader.Program, "pointLights[20].diffuse"), 0.5f, 0.5f, 0.5f);
+        glUniform3f(glGetUniformLocation(lightingShader.Program, "pointLights[20].specular"), 1.0f, 1.0f, 0.0f);
+        glUniform1f(glGetUniformLocation(lightingShader.Program, "pointLights[20].constant"), 1.0f);
+        glUniform1f(glGetUniformLocation(lightingShader.Program, "pointLights[20].linear"), 0.1f);
+        glUniform1f(glGetUniformLocation(lightingShader.Program, "pointLights[20].quadratic"), 3.5f);
 
         // SpotLight
         glUniform3f(glGetUniformLocation(lightingShader.Program, "spotLight.position"), camera.GetPosition().x, camera.GetPosition().y, camera.GetPosition().z);
@@ -407,14 +811,37 @@ int main( )
         glm::mat4 tmp2 = glm::mat4(1);
 
 
+
         // Set material properties
-        glUniform1f(glGetUniformLocation(lightingShader.Program, "material.shininess"), 64.0f);
+        glUniform1f(glGetUniformLocation(lightingShader.Program, "material.shininess"), 100.0f);
         //Base del escenario
         glm::mat4 model(1);
         view = camera.GetViewMatrix();
         model = glm::mat4(1);
         glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
         Base.Draw(lightingShader);
+        glBindVertexArray(0);
+        
+
+        //Edificio
+        view = camera.GetViewMatrix();
+        model = glm::mat4(1);
+        model = glm::translate(model, glm::vec3(15.0f, 0.5f, -10.0f));
+        model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+        model = glm::scale(model, glm::vec3(0.30f, 0.30f, 0.30f));
+        glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+        //Edif.Draw(lightingShader);
+        glBindVertexArray(0);
+
+
+        //Planta
+        view = camera.GetViewMatrix();
+        model = glm::mat4(1);
+        model = glm::translate(model, glm::vec3(19.0f, 0.5f, 15.0f));
+        model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+        model = glm::scale(model, glm::vec3(0.025f, 0.025f, 0.025f));
+        glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+        Plant.Draw(lightingShader);
         glBindVertexArray(0);
 
         
@@ -427,7 +854,7 @@ int main( )
         model = glm::scale(model, glm::vec3(0.13f, 0.13f, 0.13f));
         //model = glm::rotate(model, glm::radians(50.0f), glm::vec3(0.0f, 1.0f, 0.0f));
         glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-        Cafe.Draw(lightingShader);
+        //Cafe.Draw(lightingShader);
         glBindVertexArray(0);
 
 
@@ -438,7 +865,7 @@ int main( )
         model = glm::scale(model, glm::vec3(0.13f, 0.13f, 0.13f));
         model = glm::rotate(model, glm::radians(rot), glm::vec3(0.0f, 1.0f, 0.0f));
         glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-        CuerpoDino.Draw(lightingShader);
+        //CuerpoDino.Draw(lightingShader);
         glBindVertexArray(0);
 
         //Ala izquierda del dinosaurio
@@ -448,7 +875,7 @@ int main( )
         model = glm::scale(model, glm::vec3(0.13f, 0.13f, 0.13f));
         model = glm::rotate(model, glm::radians(rot), glm::vec3(0.0f, 1.0f, 0.0f));
         glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-        AlaIzq.Draw(lightingShader);
+        //AlaIzq.Draw(lightingShader);
         glBindVertexArray(0);
 
         //Ala derecha del dinosaurio
@@ -458,7 +885,7 @@ int main( )
         model = glm::scale(model, glm::vec3(0.13f, 0.13f, 0.13f));
         model = glm::rotate(model, glm::radians(rot), glm::vec3(0.0f, 1.0f, 0.0f));
         glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-        AlaDer.Draw(lightingShader);
+        //AlaDer.Draw(lightingShader);
         glBindVertexArray(0);
 
 
@@ -469,9 +896,8 @@ int main( )
         model = glm::scale(model, glm::vec3(0.13f, 0.13f, 0.13f));
         model = glm::rotate(model, glm::radians(rot2), glm::vec3(0.0f, 1.0f, 0.0f));
         glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-        BaseVentilador.Draw(lightingShader);
+        //BaseVentilador.Draw(lightingShader);
         glBindVertexArray(0);
-
         //Aspas del ventilador
         model = glm::mat4(1);
         view = camera.GetViewMatrix();
@@ -479,7 +905,7 @@ int main( )
         model = glm::scale(model, glm::vec3(0.13f, 0.13f, 0.13f));
         model = glm::rotate(model, glm::radians(rot2), glm::vec3(0.0f, 1.0f, 0.0f));
         glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-        Aspas.Draw(lightingShader);
+        //Aspas.Draw(lightingShader);
         glBindVertexArray(0);
 
 
@@ -490,7 +916,7 @@ int main( )
         model = glm::scale(model, glm::vec3(0.20f, 0.20f, 0.20f));
         model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
         glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-        Vader.Draw(lightingShader);
+        //Vader.Draw(lightingShader);
         glBindVertexArray(0);
 
 
@@ -503,8 +929,53 @@ int main( )
         model = glm::scale(model, glm::vec3(0.20f, 0.20f, 0.20f));
         model = glm::rotate(model, glm::radians(rot3), glm::vec3(0.0f, 1.0f, 0.0f));
         glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-        R2D2.Draw(lightingShader);
+        //R2D2.Draw(lightingShader);
         glBindVertexArray(0);
+
+
+        //Raptor cuerpo
+        model = glm::mat4(1);
+        view = camera.GetViewMatrix();
+        tmp = model = glm::translate(model, glm::vec3(RaptorX, RaptorY, RaptorZ));
+        model = glm::scale(model, glm::vec3(0.5f, 0.5f, 0.5f));
+        model = glm::rotate(model, glm::radians(RaptorRot), glm::vec3(0.0f, 1.0f, 0.0f));
+        glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+        RaptorC.Draw(lightingShader);
+        glBindVertexArray(0);
+
+        //Raptor pata izquierda
+        model = glm::mat4(1);
+        view = camera.GetViewMatrix();
+        model = glm::translate(tmp, glm::vec3(0.0f, 0.0f, 0.0f));
+        model = glm::scale(model, glm::vec3(0.5f, 0.5f, 0.5f));
+        model = glm::rotate(model, glm::radians(RaptorRot), glm::vec3(0.0f, 1.0f, 0.0f));
+        model = glm::rotate(model, glm::radians(RaptorPataI), glm::vec3(1.0f, 0.0f, 0.0f));
+        glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+        RaptorPI.Draw(lightingShader);
+        glBindVertexArray(0);
+
+        //Raptor pata derecha
+        model = glm::mat4(1);
+        view = camera.GetViewMatrix();
+        model = glm::translate(tmp, glm::vec3(0.0f, 0.0f, 0.0f));
+        model = glm::scale(model, glm::vec3(0.5f, 0.5f, 0.5f));
+        model = glm::rotate(model, glm::radians(RaptorRot), glm::vec3(0.0f, 1.0f, 0.0f));
+        model = glm::rotate(model, glm::radians(RaptorPataD), glm::vec3(1.0f, 0.0f, 0.0f));
+        glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+        RaptorPD.Draw(lightingShader);
+        glBindVertexArray(0);
+
+        //Raptor cola
+        model = glm::mat4(1);
+        view = camera.GetViewMatrix();
+        model = glm::translate(tmp, glm::vec3(0.0f, 0.0f, 0.0f));
+        model = glm::scale(model, glm::vec3(0.5f, 0.5f, 0.5f));
+        model = glm::rotate(model, glm::radians(RaptorRot), glm::vec3(0.0f, 1.0f, 0.0f));
+        model = glm::rotate(model, glm::radians(RaptorCola), glm::vec3(0.0f, 0.0f, 1.0f));
+        glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+        RaptorT.Draw(lightingShader);
+        glBindVertexArray(0);
+
 
 
         glActiveTexture(GL_TEXTURE0);
@@ -530,16 +1001,15 @@ int main( )
         //glDepthFunc(GL_LESS); // Set depth function back to default
 
 
-
-
-
         // Swap the buffers
         glfwSwapBuffers( window );
     }
     
     glDeleteVertexArrays(1, &VAO);
-    glDeleteBuffers(1, &VBO);
-    glDeleteBuffers(1, &EBO);
+	glDeleteBuffers(1, &VBO);
+	glDeleteBuffers(1, &EBO);
+	glDeleteVertexArrays(1, &skyboxVAO);
+	glDeleteBuffers(1, &skyboxVBO);
 
     glfwTerminate( );
     return 0;
@@ -578,6 +1048,41 @@ void DoMovement( )
     if (keys[GLFW_KEY_O])
     {
         anim = false;
+    }
+    //Rotación de la pata izquierda
+    if (keys[GLFW_KEY_2])
+    {
+        if (RaptorPataI < 80.0f) {
+            RaptorPataI += 1.0f;
+            std::cout << "\nEl ángulo es: " << to_string(RaptorPataI) << "\n" << std::endl;
+        }
+
+
+    }
+
+    if (keys[GLFW_KEY_3])
+    {
+        if (RaptorPataI > -45)
+            RaptorPataI -= 1.0f;
+        std::cout << RaptorPataI;
+        std::cout << "\nEl ángulo es: " << to_string(RaptorPataI) << "\n" << std::endl;
+
+    }
+
+    if (keys[GLFW_KEY_4])
+    {
+        
+        RaptorRot += 1.0f;
+        std::cout << "\nEl ángulo es: " << to_string(RaptorRot) << "\n" << std::endl;
+
+    }
+
+    if (keys[GLFW_KEY_5])
+    {
+
+        RaptorRot -= 1.0f;
+        std::cout << "\nEl ángulo es: " << to_string(RaptorRot) << "\n" << std::endl;
+
     }
 
 
@@ -717,28 +1222,108 @@ void animacion() {
 
         rot2 += 0.1;
     }
+
+    if (play)
+    {
+        if (i_curr_steps >= i_max_steps) //end of animation between frames?
+        {
+            playIndex++;
+            if (playIndex > FrameIndex - 2)	//end of total animation?
+            {
+                printf("termina anim\n");
+                playIndex = 0;
+                play = false;
+            }
+            else //Next frame interpolations
+            {
+                i_curr_steps = 0; //Reset counter
+                                  //Interpolation
+                interpolation();
+            }
+        }
+        else
+        {
+            //Draw animation
+
+            //Movimiento Raptor
+            RaptorX += KeyFrame[playIndex].RapIncX;
+            RaptorY += KeyFrame[playIndex].RapIncY;
+            RaptorZ += KeyFrame[playIndex].RapIncZ;
+            //Ángulo Raptor
+            RaptorRot += KeyFrame[playIndex].RapIncRot;
+
+            //Ángulos patas
+            RaptorPataD += KeyFrame[playIndex].RapIncPD;
+            RaptorPataI += KeyFrame[playIndex].RapIncPI;
+
+            //Ángulo cola
+            RaptorCola += KeyFrame[playIndex].RapIncCola;
+
+
+            i_curr_steps++;
+        }
+
+    }
 }
 
 // Is called whenever a key is pressed/released via GLFW
-void KeyCallback( GLFWwindow *window, int key, int scancode, int action, int mode )
+void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mode)
 {
-    if ( GLFW_KEY_ESCAPE == key && GLFW_PRESS == action )
+    if (keys[GLFW_KEY_L])
+    {
+        if (play == false && (FrameIndex > 1))
+        {
+
+            resetElements();
+            //First Interpolation				
+            interpolation();
+
+            play = true;
+            playIndex = 0;
+            i_curr_steps = 0;
+        }
+        else
+        {
+            play = false;
+        }
+
+    }
+
+    /*if (keys[GLFW_KEY_K])
+    {
+        if (FrameIndex < MAX_FRAMES)
+        {
+            saveFrame();
+        }
+
+    }*/
+
+
+    if (GLFW_KEY_ESCAPE == key && GLFW_PRESS == action)
     {
         glfwSetWindowShouldClose(window, GL_TRUE);
     }
-    
-    if ( key >= 0 && key < 1024 )
+
+    if (key >= 0 && key < 1024)
     {
-        if ( action == GLFW_PRESS )
+        if (action == GLFW_PRESS)
         {
             keys[key] = true;
         }
-        else if ( action == GLFW_RELEASE )
+        else if (action == GLFW_RELEASE)
         {
             keys[key] = false;
         }
     }
- 
+
+    if (keys[GLFW_KEY_SPACE])
+    {
+        active = !active;
+        if (active)
+            LightP1 = glm::vec3(1.0f, 0.0f, 0.0f);
+        else
+            LightP1 = glm::vec3(0.0f, 0.0f, 0.0f);
+    }
 }
 
 void MouseCallback(GLFWwindow* window, double xPos, double yPos)

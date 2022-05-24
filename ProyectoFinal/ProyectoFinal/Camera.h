@@ -56,7 +56,7 @@ public:
 	glm::mat4 GetViewMatrix()
 	{
 		//Imprimir la posición de la cámara
-		std::cout << "La posicion actual de la camara es: " << glm::to_string(position) << "\n" << std::endl; //F por los acentos
+		//std::cout << "La posicion actual de la camara es: " << glm::to_string(position) << "\n" << std::endl; //F por los acentos
 
 		return glm::lookAt(this->position, this->position + this->front, this->up);
 	}
