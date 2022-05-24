@@ -3,6 +3,8 @@
 /*-----------------    2022-2  ---------------------------*/
 /*-------- Alumno: Sa�l Abraham Esparza Rivera -----------*/
 /*-------- Cuenta: 314041502 -----------------------------*/
+/*-------- Alumno: Andrew S嫕chez Manjarrez  -----------*/
+/*-------- Cuenta: 416041343 -----------------------------*/
 
 #include <iostream>
 #include <cmath>
@@ -31,7 +33,7 @@
 #include "Texture.h"
 
 // Properties
-const GLuint WIDTH = 1500, HEIGHT = 1200;
+const GLuint WIDTH = 1280, HEIGHT = 720;
 int SCREEN_WIDTH, SCREEN_HEIGHT;
 
 // Light attributes
@@ -91,7 +93,7 @@ float tiempo;
 
 
 float RaptorX = 21.0f, RaptorY = 1.5f, RaptorZ = 15.0f, RaptorRot = -90.0f, RaptorPataI, RaptorPataD, RaptorCola;
-
+float JeepX = 0.5f, JeepY = 1.0f, JeepZ = 19.0f, JeepAng= 180.0f;
 
 #define MAX_FRAMES 60
 int i_max_steps = 90;
@@ -125,6 +127,17 @@ typedef struct _frame
     //聲gulo cola
     float RaptorCola;
     float RapIncCola;
+
+    //Variables del coche
+    float JeepX;
+    float JeepIncX;
+    float JeepY;
+    float JeepIncY;
+    float JeepZ;
+    float JeepIncZ;
+    float JeepAng;
+    float JeepIncAng;
+
 
 
 }FRAME;
@@ -201,6 +214,11 @@ void resetElements(void)
     RaptorPataD = KeyFrame[0].RaptorPataD;
     RaptorCola = KeyFrame[0].RaptorCola;
 
+    //Jeep Posici鏮
+    JeepX = KeyFrame[0].JeepX;
+    JeepY = KeyFrame[0].JeepY;
+    JeepZ = KeyFrame[0].JeepZ;
+    JeepAng = KeyFrame[0].JeepAng;
     
 
 }
@@ -220,6 +238,12 @@ void interpolation(void)
     KeyFrame[playIndex].RapIncPD = (KeyFrame[playIndex + 1].RaptorPataD - KeyFrame[playIndex].RaptorPataD) / i_max_steps;
     KeyFrame[playIndex].RapIncCola = (KeyFrame[playIndex + 1].RaptorCola - KeyFrame[playIndex].RaptorCola) / i_max_steps;
 
+    //Jeep Posici鏮
+    KeyFrame[playIndex].JeepIncX = (KeyFrame[playIndex + 1].JeepX - KeyFrame[playIndex].JeepX) / i_max_steps;
+    KeyFrame[playIndex].JeepIncY = (KeyFrame[playIndex + 1].JeepY - KeyFrame[playIndex].JeepY) / i_max_steps;
+    KeyFrame[playIndex].JeepIncZ = (KeyFrame[playIndex + 1].JeepZ - KeyFrame[playIndex].JeepZ) / i_max_steps;
+    //Jeep 聲gulo
+    KeyFrame[playIndex].JeepIncAng = (KeyFrame[playIndex + 1].JeepAng - KeyFrame[playIndex].JeepAng) / i_max_steps;
 
     
 
@@ -383,21 +407,21 @@ int main( )
     Model Base((char*)"Models/Base2/Base.obj");
 
     ////Cafeter燰
-    //Model Cafe((char*)"Models/Cafe New/Cafe.obj");
+    Model Cafe((char*)"Models/Cafe New/Cafe.obj");
 
     ////Dinosaurio volador
-    //Model CuerpoDino((char*)"Models/Dino/body.obj");
-    //Model AlaIzq((char*)"Models/Dino/AlaIzq.obj");
-    //Model AlaDer((char*)"Models/Dino/AlaDer.obj");
+    Model CuerpoDino((char*)"Models/Dino/body.obj");
+    Model AlaIzq((char*)"Models/Dino/AlaIzq.obj");
+    Model AlaDer((char*)"Models/Dino/AlaDer.obj");
 
     ////Ventilador
-    //Model BaseVentilador((char*)"Models/Vent/Base.obj");
-    //Model Aspas((char*)"Models/Vent/Aspas.obj");
-    //Model Vader((char*)"Models/Vader/Vader.obj");
-    //Model R2D2((char*)"Models/R2D2/R2.obj");
+    Model BaseVentilador((char*)"Models/Vent/Base.obj");
+    Model Aspas((char*)"Models/Vent/Aspas.obj");
+    Model Vader((char*)"Models/Vader/Vader.obj");
+    Model R2D2((char*)"Models/R2D2/R2.obj");
 
     ////Edificio
-    //Model Edif((char*)"Models/EdificioA/Edif.obj");
+    Model Edif((char*)"Models/EdificioA/Edif.obj");
 
     //Planta
     Model Plant((char*)"Models/Plant/Fern.obj");
@@ -407,6 +431,9 @@ int main( )
     Model RaptorPD((char*)"Models/Raptor/PataDer.obj");
     Model RaptorPI((char*)"Models/Raptor/PataIzq.obj");
     Model RaptorT((char*)"Models/Raptor/Cola.obj");
+
+    //Jeep al fin
+    Model Jeep((char*)"Models/Jeep/Jeep.obj");
 
 
 
@@ -433,6 +460,12 @@ int main( )
     KeyFrame[FrameIndex].RaptorZ = 15.0f;
     //KF 聲gulo Raptor
     KeyFrame[FrameIndex].RaptorRot = -90.0f;
+    //KF Jeep Movimiento
+    KeyFrame[FrameIndex].JeepX = 0.5f;
+    KeyFrame[FrameIndex].JeepY = 1.0f;
+    KeyFrame[FrameIndex].JeepZ = 19.0f;
+    //聲gulo jeep
+    KeyFrame[FrameIndex].JeepAng = 180.0f;
     //Aumentar el 璯dice
     FrameIndex++;
 
@@ -446,6 +479,14 @@ int main( )
     //KF Patas
     KeyFrame[FrameIndex].RaptorPataD = 12.0f;
     KeyFrame[FrameIndex].RaptorPataI = -10.0f;
+    //KF Cola
+    KeyFrame[FrameIndex].RaptorCola = -5.0f;
+    //KF Jeep Movimiento
+    KeyFrame[FrameIndex].JeepX = 5.0f;
+    KeyFrame[FrameIndex].JeepY = 1.0f;
+    KeyFrame[FrameIndex].JeepZ = 13.0f;
+    //聲gulo jeep
+    KeyFrame[FrameIndex].JeepAng = 90.0f;
     //Aumentar el 璯dice
     FrameIndex++;
 
@@ -459,6 +500,56 @@ int main( )
     //KF Patas
     KeyFrame[FrameIndex].RaptorPataD = -10.0f;
     KeyFrame[FrameIndex].RaptorPataI = 12.0f;
+    //KF Cola
+    KeyFrame[FrameIndex].RaptorCola = 12.0f;
+    //KF Jeep Movimiento
+    KeyFrame[FrameIndex].JeepX = 10.0f;
+    KeyFrame[FrameIndex].JeepY = 1.0f;
+    KeyFrame[FrameIndex].JeepZ = 10.0f;
+    //聲gulo jeep
+    KeyFrame[FrameIndex].JeepAng = 90.0f;
+    //Aumentar el 璯dice
+    FrameIndex++;
+
+    //Movimiento 2.1
+    //KF Movimiento Raptor
+    KeyFrame[FrameIndex].RaptorX = 13.0f;
+    KeyFrame[FrameIndex].RaptorY = 1.5f;
+    KeyFrame[FrameIndex].RaptorZ = 10.0f;
+    //KF 聲gulo Raptor
+    KeyFrame[FrameIndex].RaptorRot = -130.0f;
+    //KF Patas
+    KeyFrame[FrameIndex].RaptorPataD = -10.0f;
+    KeyFrame[FrameIndex].RaptorPataI = 12.0f;
+    //KF Cola
+    KeyFrame[FrameIndex].RaptorCola = 12.0f;
+    //KF Jeep Movimiento
+    KeyFrame[FrameIndex].JeepX = 13.0f;
+    KeyFrame[FrameIndex].JeepY = 1.0f;
+    KeyFrame[FrameIndex].JeepZ = 5.0f;
+    //聲gulo jeep
+    KeyFrame[FrameIndex].JeepAng = 180.0f;
+    //Aumentar el 璯dice
+    FrameIndex++;
+
+    //Movimiento 2.2
+    //KF Movimiento Raptor
+    KeyFrame[FrameIndex].RaptorX = 13.0f;
+    KeyFrame[FrameIndex].RaptorY = 1.5f;
+    KeyFrame[FrameIndex].RaptorZ = 5.0f;
+    //KF 聲gulo Raptor
+    KeyFrame[FrameIndex].RaptorRot = -160.0f;
+    //KF Patas
+    KeyFrame[FrameIndex].RaptorPataD = -10.0f;
+    KeyFrame[FrameIndex].RaptorPataI = 12.0f;
+    //KF Cola
+    KeyFrame[FrameIndex].RaptorCola = 12.0f;
+    //KF Jeep Movimiento
+    KeyFrame[FrameIndex].JeepX = 13.0f;
+    KeyFrame[FrameIndex].JeepY = 1.0f;
+    KeyFrame[FrameIndex].JeepZ = -1.0f;
+    //聲gulo jeep
+    KeyFrame[FrameIndex].JeepAng = 180.0f;
     //Aumentar el 璯dice
     FrameIndex++;
 
@@ -472,6 +563,14 @@ int main( )
     //KF Patas
     KeyFrame[FrameIndex].RaptorPataD = 12.0f;
     KeyFrame[FrameIndex].RaptorPataI = -10.0f;
+    //KF Cola
+    KeyFrame[FrameIndex].RaptorCola = -5.0f;
+    //KF Jeep Movimiento
+    KeyFrame[FrameIndex].JeepX = 13.0f;
+    KeyFrame[FrameIndex].JeepY = 1.0f;
+    KeyFrame[FrameIndex].JeepZ = -6.0f;
+    //聲gulo jeep
+    KeyFrame[FrameIndex].JeepAng = 180.0f;
     //Aumentar el 璯dice
     FrameIndex++;
 
@@ -485,6 +584,35 @@ int main( )
     //KF Patas
     KeyFrame[FrameIndex].RaptorPataD = -10.0f;
     KeyFrame[FrameIndex].RaptorPataI = 12.0f;
+    //KF Cola
+    KeyFrame[FrameIndex].RaptorCola = 12.0f;
+    //KF Jeep Movimiento
+    KeyFrame[FrameIndex].JeepX = 13.0f;
+    KeyFrame[FrameIndex].JeepY = 1.0f;
+    KeyFrame[FrameIndex].JeepZ = -9.0f;
+    //聲gulo jeep
+    KeyFrame[FrameIndex].JeepAng = -90.0f;
+    //Aumentar el 璯dice
+    FrameIndex++;
+
+    //Movimiento 4.1
+    //KF Movimiento Raptor
+    KeyFrame[FrameIndex].RaptorX = 6.0f;
+    KeyFrame[FrameIndex].RaptorY = 1.5f;
+    KeyFrame[FrameIndex].RaptorZ = -10.0f;
+    //KF 聲gulo Raptor
+    KeyFrame[FrameIndex].RaptorRot = -90.0f;
+    //KF Patas
+    KeyFrame[FrameIndex].RaptorPataD = -10.0f;
+    KeyFrame[FrameIndex].RaptorPataI = 12.0f;
+    //KF Cola
+    KeyFrame[FrameIndex].RaptorCola = 12.0f;
+    //KF Jeep Movimiento
+    KeyFrame[FrameIndex].JeepX = 16.0f;
+    KeyFrame[FrameIndex].JeepY = 1.0f;
+    KeyFrame[FrameIndex].JeepZ = -9.0f;
+    //聲gulo jeep
+    KeyFrame[FrameIndex].JeepAng = -90.0f;
     //Aumentar el 璯dice
     FrameIndex++;
 
@@ -498,6 +626,14 @@ int main( )
     //KF Patas
     KeyFrame[FrameIndex].RaptorPataD = 12.0f;
     KeyFrame[FrameIndex].RaptorPataI = -10.0f;
+    //KF Cola
+    KeyFrame[FrameIndex].RaptorCola = -5.0f;
+    //KF Jeep Movimiento
+    KeyFrame[FrameIndex].JeepX = 16.0f;
+    KeyFrame[FrameIndex].JeepY = 1.0f;
+    KeyFrame[FrameIndex].JeepZ = -9.0f;
+    //聲gulo jeep
+    KeyFrame[FrameIndex].JeepAng = -90.0f;
     //Aumentar el 璯dice
     FrameIndex++;
 
@@ -511,6 +647,14 @@ int main( )
     //KF Patas
     KeyFrame[FrameIndex].RaptorPataD = -10.0f;
     KeyFrame[FrameIndex].RaptorPataI = 12.0f;
+    //KF Cola
+    KeyFrame[FrameIndex].RaptorCola = 12.0f;
+    //KF Jeep Movimiento
+    KeyFrame[FrameIndex].JeepX = 16.0f;
+    KeyFrame[FrameIndex].JeepY = 1.0f;
+    KeyFrame[FrameIndex].JeepZ = -9.0f;
+    //聲gulo jeep
+    KeyFrame[FrameIndex].JeepAng = -90.0f;
     //Aumentar el 璯dice
     FrameIndex++;
 
@@ -524,12 +668,16 @@ int main( )
     //KF Patas
     KeyFrame[FrameIndex].RaptorPataD = 12.0f;
     KeyFrame[FrameIndex].RaptorPataI = -10.0f;
+    //KF Cola
+    KeyFrame[FrameIndex].RaptorCola = -5.0f;
+    //KF Jeep Movimiento
+    KeyFrame[FrameIndex].JeepX = 16.0f;
+    KeyFrame[FrameIndex].JeepY = 1.0f;
+    KeyFrame[FrameIndex].JeepZ = -9.0f;
+    //聲gulo jeep
+    KeyFrame[FrameIndex].JeepAng = -90.0f;
     //Aumentar el 璯dice
     FrameIndex++;
-
-
-
-
 
 
     //SkyBox
@@ -571,12 +719,6 @@ int main( )
         // Clear the colorbuffer
         glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-
-        
-
-
-
 
         // Use cooresponding shader when setting uniforms/drawing objects
         lightingShader.Use();
@@ -826,11 +968,11 @@ int main( )
         //Edificio
         view = camera.GetViewMatrix();
         model = glm::mat4(1);
-        model = glm::translate(model, glm::vec3(15.0f, 0.5f, -10.0f));
+        model = glm::translate(model, glm::vec3(15.0f, 0.5f, -16.0f));
         model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
         model = glm::scale(model, glm::vec3(0.30f, 0.30f, 0.30f));
         glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-        //Edif.Draw(lightingShader);
+        Edif.Draw(lightingShader);
         glBindVertexArray(0);
 
 
@@ -854,7 +996,7 @@ int main( )
         model = glm::scale(model, glm::vec3(0.13f, 0.13f, 0.13f));
         //model = glm::rotate(model, glm::radians(50.0f), glm::vec3(0.0f, 1.0f, 0.0f));
         glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-        //Cafe.Draw(lightingShader);
+        Cafe.Draw(lightingShader);
         glBindVertexArray(0);
 
 
@@ -865,7 +1007,7 @@ int main( )
         model = glm::scale(model, glm::vec3(0.13f, 0.13f, 0.13f));
         model = glm::rotate(model, glm::radians(rot), glm::vec3(0.0f, 1.0f, 0.0f));
         glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-        //CuerpoDino.Draw(lightingShader);
+        CuerpoDino.Draw(lightingShader);
         glBindVertexArray(0);
 
         //Ala izquierda del dinosaurio
@@ -875,7 +1017,7 @@ int main( )
         model = glm::scale(model, glm::vec3(0.13f, 0.13f, 0.13f));
         model = glm::rotate(model, glm::radians(rot), glm::vec3(0.0f, 1.0f, 0.0f));
         glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-        //AlaIzq.Draw(lightingShader);
+        AlaIzq.Draw(lightingShader);
         glBindVertexArray(0);
 
         //Ala derecha del dinosaurio
@@ -885,7 +1027,7 @@ int main( )
         model = glm::scale(model, glm::vec3(0.13f, 0.13f, 0.13f));
         model = glm::rotate(model, glm::radians(rot), glm::vec3(0.0f, 1.0f, 0.0f));
         glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-        //AlaDer.Draw(lightingShader);
+        AlaDer.Draw(lightingShader);
         glBindVertexArray(0);
 
 
@@ -896,7 +1038,7 @@ int main( )
         model = glm::scale(model, glm::vec3(0.13f, 0.13f, 0.13f));
         model = glm::rotate(model, glm::radians(rot2), glm::vec3(0.0f, 1.0f, 0.0f));
         glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-        //BaseVentilador.Draw(lightingShader);
+        BaseVentilador.Draw(lightingShader);
         glBindVertexArray(0);
         //Aspas del ventilador
         model = glm::mat4(1);
@@ -905,18 +1047,18 @@ int main( )
         model = glm::scale(model, glm::vec3(0.13f, 0.13f, 0.13f));
         model = glm::rotate(model, glm::radians(rot2), glm::vec3(0.0f, 1.0f, 0.0f));
         glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-        //Aspas.Draw(lightingShader);
+        Aspas.Draw(lightingShader);
         glBindVertexArray(0);
 
 
         //Vader
         model = glm::mat4(1);
         view = camera.GetViewMatrix();
-        model = glm::translate(model, glm::vec3(-6.46f, 1.50f, 8.93f));
+        model = glm::translate(model, glm::vec3(-6.46f, 1.60f, 8.93f));
         model = glm::scale(model, glm::vec3(0.20f, 0.20f, 0.20f));
         model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
         glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-        //Vader.Draw(lightingShader);
+        Vader.Draw(lightingShader);
         glBindVertexArray(0);
 
 
@@ -929,7 +1071,7 @@ int main( )
         model = glm::scale(model, glm::vec3(0.20f, 0.20f, 0.20f));
         model = glm::rotate(model, glm::radians(rot3), glm::vec3(0.0f, 1.0f, 0.0f));
         glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-        //R2D2.Draw(lightingShader);
+        R2D2.Draw(lightingShader);
         glBindVertexArray(0);
 
 
@@ -974,6 +1116,16 @@ int main( )
         model = glm::rotate(model, glm::radians(RaptorCola), glm::vec3(0.0f, 0.0f, 1.0f));
         glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
         RaptorT.Draw(lightingShader);
+        glBindVertexArray(0);
+
+        //Jeep
+        model = glm::mat4(1);
+        view = camera.GetViewMatrix();
+        model = glm::translate(model, glm::vec3(JeepX, JeepY, JeepZ));
+        model = glm::scale(model, glm::vec3(0.3f, 0.3f, 0.3f));
+        model = glm::rotate(model, glm::radians(JeepAng), glm::vec3(0.0f, 1.0f, 0.0f));
+        glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+        Jeep.Draw(lightingShader);
         glBindVertexArray(0);
 
 
@@ -1052,36 +1204,34 @@ void DoMovement( )
     //Rotaci鏮 de la pata izquierda
     if (keys[GLFW_KEY_2])
     {
-        if (RaptorPataI < 80.0f) {
-            RaptorPataI += 1.0f;
-            std::cout << "\nEl 嫕gulo es: " << to_string(RaptorPataI) << "\n" << std::endl;
-        }
+        
+            JeepAng += 1.0f;
+            std::cout << "\nEl 嫕gulo es: " << to_string(JeepAng) << "\n" << std::endl;
 
 
     }
 
     if (keys[GLFW_KEY_3])
     {
-        if (RaptorPataI > -45)
-            RaptorPataI -= 1.0f;
-        std::cout << RaptorPataI;
-        std::cout << "\nEl 嫕gulo es: " << to_string(RaptorPataI) << "\n" << std::endl;
+        JeepAng -= 1.0f;
+        std::cout << JeepAng;
+        std::cout << "\nEl 嫕gulo es: " << to_string(JeepAng) << "\n" << std::endl;
 
     }
 
     if (keys[GLFW_KEY_4])
     {
         
-        RaptorRot += 1.0f;
-        std::cout << "\nEl 嫕gulo es: " << to_string(RaptorRot) << "\n" << std::endl;
+        RaptorCola += 0.2f;
+        std::cout << "\nEl 嫕gulo es: " << to_string(RaptorCola) << "\n" << std::endl;
 
     }
 
     if (keys[GLFW_KEY_5])
     {
 
-        RaptorRot -= 1.0f;
-        std::cout << "\nEl 嫕gulo es: " << to_string(RaptorRot) << "\n" << std::endl;
+        RaptorCola -= 0.2f;
+        std::cout << "\nEl 嫕gulo es: " << to_string(RaptorCola) << "\n" << std::endl;
 
     }
 
@@ -1259,6 +1409,14 @@ void animacion() {
             //聲gulo cola
             RaptorCola += KeyFrame[playIndex].RapIncCola;
 
+            //Movimiento Jeep
+            JeepX += KeyFrame[playIndex].JeepIncX;
+            JeepY += KeyFrame[playIndex].JeepIncY;
+            JeepZ += KeyFrame[playIndex].JeepIncZ;
+
+            //聲gulo Jeep
+            JeepAng += KeyFrame[playIndex].JeepIncAng;
+
 
             i_curr_steps++;
         }
@@ -1289,15 +1447,6 @@ void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mode
 
     }
 
-    /*if (keys[GLFW_KEY_K])
-    {
-        if (FrameIndex < MAX_FRAMES)
-        {
-            saveFrame();
-        }
-
-    }*/
-
 
     if (GLFW_KEY_ESCAPE == key && GLFW_PRESS == action)
     {
@@ -1316,14 +1465,6 @@ void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mode
         }
     }
 
-    if (keys[GLFW_KEY_SPACE])
-    {
-        active = !active;
-        if (active)
-            LightP1 = glm::vec3(1.0f, 0.0f, 0.0f);
-        else
-            LightP1 = glm::vec3(0.0f, 0.0f, 0.0f);
-    }
 }
 
 void MouseCallback(GLFWwindow* window, double xPos, double yPos)
